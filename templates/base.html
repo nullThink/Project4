@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robot Controller</title>
+    <!--  A tad bit archaic, but using style tags instead of separate css file here.  -->
+    <style>
+        body {
+            background-color: seagreen;
+        }
+
+        h1 {
+            color: white;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+
+        .button {
+            padding: 50%;
+            border: 1.5px solid black;
+            border-radius: 100%;
+        }
+
+        #button-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            width: 50vw;
+            height: 50vw;
+            margin: 0 auto;
+            margin-top: 15px;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* Set positioning of buttons in grid layout */
+        #forward-button {
+            grid-row-start: 1;
+            grid-row-end: 2;
+            grid-column-start: 2;
+        }
+
+        #reverse-button {
+            grid-row-start: 3;
+            grid-column-start: 2;
+        }
+
+        #stop-button {
+            grid-row-start: 2;
+            grid-row-end: 2;
+            grid-column-start: 2;
+            grid-column-end: 2;
+        }
+
+        #left-button {
+            grid-row-start: 2;
+            grid-column-start: 3;
+        }
+
+        #right-button {
+            grid-row-start: 2;
+            grid-row-end: 3;
+            grid-column-start: 1;
+            grid-column-end: 2;
+        }
+
+        #stop-button div {
+            background-color: red;
+        }
+
+        #forward-button div {
+            background-color: green;
+        }
+
+        #reverse-button div {
+            background-color: blue;
+        }
+
+        #left-button div {
+            background-color: yellow;
+        }
+
+        #right-button div {
+            background-color: orange;
+        }
+    </style>
+    <script>
+        let currentURL = window.location.href;
+        const STOP_LINK = "http://10.245.145.146:5000/";
+
+        let buttonHeld;
+
+        window.onload = () => {
+            let forwardButton = document.getElementById("forward-button");
+            let reverseButton = document.getElementById("reverse-button");
+            let leftButton = document.getElementById("left-button");
+            let rightButton = document.getElementById("right-button");
+
+            if (currentURL != STOP_LINK) {
+                buttonHeld = true;
+            }
+
+            forwardButton.addEventListener("mouseover", (e) => {
+                buttonHeld = true;
+            });
+
+            forwardButton.addEventListener("mouseout", (e) => {
+                buttonHeld = false;
+            });
+
+            reverseButton.addEventListener("mouseover", (e) => {
+                buttonHeld = true;
+            });
+
+            reverseButton.addEventListener("mouseout", (e) => {
+                buttonHeld = false;
+            });
+
+            leftButton.addEventListener("mouseover", (e) => {
+                buttonHeld = true;
+            });
+
+            leftButton.addEventListener("mouseout", (e) => {
+                buttonHeld = false;
+            });
+
+            rightButton.addEventListener("mouseover", (e) => {
+                buttonHeld = true;
+            });
+
+            rightButton.addEventListener("mouseout", (e) => {
+                buttonHeld = false;
+            });
+
+            setTimeout(() => {
+                if (!buttonHeld && currentURL != STOP_LINK) {
+                    window.location.href = STOP_LINK;
+                }
+            }, 3000);
+        }
+
+    </script>
+</head>
+
+<body>
+    <!-- Can honestly probably recode into JS somehow with onMouseDown event
+    listener perhaps. onMouseRelease event go to stop condition -->
+    <div id="button-container">
+        <a href="http://10.245.145.146:5000/backward" id="reverse-button">
+            <div class="button" id="reverse-button"></div>
+        </a>
+        <!-- <a href="http://10.245.145.146:5000/" id="stop-button">
+            <div class="button" id="stop-button"></div>
+        </a> -->
+        <a href="http://10.245.145.146:5000/forward" id="forward-button">
+            <div class="button" id="forward-button"></div>
+        </a>
+        <a href="http://10.245.145.146:5000/left" id="left-button">
+            <div class="button" id="left-button"></div>
+        </a>
+        <a href="http://10.245.145.146:5000/right" id="right-button">
+            <div class="button" id="right-button"></div>
+        </a>
+    </div>
+</body>
+
+</html>
